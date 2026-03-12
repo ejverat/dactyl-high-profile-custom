@@ -10,8 +10,16 @@ I didn't build this script with the goal of making it easy to share and extend..
 ## Generating OpenSCAD Models
 This script is tested against Python 3.8.0
 
-Intall dependencies with `pip install -r requirements.txt`
+### Setup Python Environment
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
 
-Run a one-off scad model build with `make run`
+### Run
+```bash
+make run
+```
 
 Watch and rebuild scad models with `make watch` (useful for development)

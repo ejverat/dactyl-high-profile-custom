@@ -9,3 +9,4 @@ six
 solidpython
 watchdog
 numpy
+setuptools<81
