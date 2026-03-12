@@ -4,6 +4,8 @@ from math import radians, sin, cos
 SWITCH_RISER_RADIUS = 0.8
 SWITCH_RISER_HEIGHT = 4.5
 
+ROUND_RADIUS = 0.5
+
 
 def switch_riser_raw_dot_fn():
     return sphere(SWITCH_RISER_RADIUS)
@@ -22,3 +24,6 @@ def switch_riser_post_fn():
 
 
 switch_riser_post = switch_riser_post_fn()
+
+def round_hull(*children):
+    return minkowski_sum(hull(*children), sphere(ROUND_RADIUS))

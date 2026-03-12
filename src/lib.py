@@ -111,6 +111,9 @@ def difference(*children):
 def intersection(*children):
     return Merger(solid.intersection, children)
 
+def minkowski_sum(*children):
+    return Merger(solid.minkowski, children)
+
 # def projection(child):
 #     return NativeSCAD(solid.projection, child)
 

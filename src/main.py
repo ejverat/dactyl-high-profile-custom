@@ -416,7 +416,7 @@ def wall_connect_from_placer(place_fn1, idx1, place_fn2, idx2, *, delta1=None, d
     shapes = []
 
     if should_include_risers:
-        shapes.append(hull(place_fn1(post1), place_fn2(post2)))
+        shapes.append(round_hull(place_fn1(post1), place_fn2(post2)))
 
     if connectors:
         shapes.append(
@@ -585,19 +585,19 @@ def thumb_walls():
 
         thumb_wall(thumb_r_placer, square_idx_bl, thumb_r_placer, square_idx_br, walls=False, connectors=False),
 
-        hull(
+        round_hull(
             get_offset_thumb_placer(thumb_br_placer, square_idx_tr, top_dot),
             get_offset_thumb_placer(thumb_r_placer, square_idx_bl, top_dot),
             get_offset_thumb_placer(thumb_r_placer, square_idx_bl, switch_riser_raw_dot),
         ),
 
-        hull(
+        round_hull(
             get_offset_thumb_placer(thumb_br_placer, square_idx_tr, top_dot),
             get_offset_thumb_placer(thumb_br_placer, square_idx_tr, switch_riser_raw_dot),
             get_offset_thumb_placer(thumb_r_placer, square_idx_bl, switch_riser_raw_dot),
         ),
 
-        hull(
+        round_hull(
             get_offset_thumb_placer(thumb_r_placer, square_idx_br, switch_riser_raw_dot),
             get_offset_thumb_placer(thumb_r_placer, square_idx_bl, switch_riser_raw_dot),
             get_offset_thumb_placer(thumb_br_placer, square_idx_tr, switch_riser_raw_dot),
@@ -741,19 +741,19 @@ def thumb_to_body_connectors():
             )
         ),
 
-        hull(
+        round_hull(
             thumb_r_placer(get_in_square(switch_riser_offset_square, square_idx_br)(switch_riser_raw_dot)),
             thumb_r_placer(get_in_square(switch_riser_offset_square, square_idx_tr)(switch_riser_raw_dot)),
             place_on_grid(3, 2)(get_in_square(switch_riser_offset_square, square_idx_bl)(switch_riser_raw_dot)),
         ),
 
-        hull(
+        round_hull(
             thumb_r_placer(get_in_square(switch_riser_offset_square, square_idx_tr)(switch_riser_raw_dot)),
             place_on_grid(3, 2)(get_in_square(switch_riser_offset_square, square_idx_bl)(switch_riser_raw_dot)),
             place_on_grid(2, 1)(get_in_square(switch_riser_offset_square, square_idx_br)(switch_riser_raw_dot)),
         ),
 
-        hull(
+        round_hull(
             thumb_r_placer(get_in_square(switch_riser_offset_square, square_idx_tr)(switch_riser_raw_dot)),
             thumb_r_placer(get_in_square(switch_riser_offset_square, square_idx_tl)(switch_riser_raw_dot)),
 
@@ -767,7 +767,7 @@ def thumb_to_body_connectors():
             )
         ),
 
-        hull(
+        round_hull(
             thumb_m_placer(get_in_square(switch_riser_offset_square, square_idx_tl)(switch_riser_raw_dot)),
             place_on_grid(2, 0)(get_in_square(switch_riser_offset_square, square_idx_bl)(switch_riser_raw_dot)),
             place_on_grid(2, 0)(get_in_square(switch_riser_offset_square, square_idx_br)(switch_riser_raw_dot)),
