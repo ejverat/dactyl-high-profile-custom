@@ -840,77 +840,19 @@ def screw_insert_all_shapes(shape):
         screw_insert(0, max_num_rows - 1, shape, -13.4, 1.7),
     )
 
-trrs_holder_size = [6.0, 11.0, 7.0]
-trrs_hole_size = [2.6, 10.0]
-trrs_holder_thickness = 2.5
+screw_insert_outer = translate(0, 0, bottom_height)(cylinderr1r2(screw_insert_bottom_radius + screw_insert_width, screw_insert_top_radius + screw_insert_width, screw_insert_height + screw_insert_width))
+screw_insert_inner = translate(0, 0, bottom_height)(cylinderr1r2(screw_insert_bottom_radius, screw_insert_top_radius, screw_insert_height))
 
-trrs_front_thickness = 1.8
+holder_cutout_height = 12.5
+holder_cutout_width = 29.0
 
-def trrs_key_holder_position():
-    base_place = point_on_grid(0, 0, 0, keyswitch_width / 2, 0)
-    return [base_place[0] + 3, base_place[1] + 2.43, 8.5]
+def holder_cutout_position():
+    base_place = point_on_grid(0, 0, 0, 0, 0)
+    return [base_place[0] + 8, base_place[1] - 3, 8]
 
-def trrs_holder():
-    shape = cube(
-        trrs_holder_size[0] + trrs_holder_thickness,
-        trrs_holder_size[1] + trrs_front_thickness,
-        trrs_holder_size[2] + trrs_holder_thickness * 2,
-    )
-
-    pos = trrs_key_holder_position()
-
-    placed_shape = translate(
-            -trrs_holder_size[0] / 2,
-            -trrs_holder_size[1],
-            -(trrs_holder_size[2] / 2 + trrs_holder_thickness),
-    )(shape)
-
-    return translate(*trrs_key_holder_position())(placed_shape)
-
-def trrs_holder_hole():
-    rect_hole = cube(*trrs_holder_size)
-    rect_hole = translate(
-            -trrs_holder_size[0] / 2,
-            -trrs_holder_size[1],
-            -trrs_holder_size[2] / 2,
-        )(rect_hole)
-
-    cylinder_hole = cylinder(*trrs_hole_size, segments=30)
-    cylinder_hole = rotate_x(90)(cylinder_hole)
-    cylinder_hole = translate(0, 5, 0)(cylinder_hole)
-
-    return translate(*trrs_key_holder_position())(union(rect_hole, cylinder_hole))
-
-usb_holder_hole_dims = [6.5, 15.0, 9.212]
-usb_holder_thickness = 2.0
-
-def usb_holder_position():
-    base_place = point_on_grid(0, 0, 0, keyswitch_width / 2, 0)
-    return [base_place[0] + 13, base_place[1], 9]
-
-def usb_holder_rim():
-    base_shape = cube(
-        usb_holder_hole_dims[0] + usb_holder_thickness * 2,
-        usb_holder_thickness * 2,
-        usb_holder_hole_dims[2] + usb_holder_thickness * 2,
-    )
-
-    placed_shape = translate(
-        -usb_holder_hole_dims[0] / 2 - usb_holder_thickness,
-        0,
-        -usb_holder_hole_dims[2] / 2 - usb_holder_thickness,
-    )(base_shape)
-
-    return translate(*usb_holder_position())(placed_shape)
-
-def usb_holder_hole():
-    placed_shape = translate(
-        -usb_holder_hole_dims[0] / 2,
-        -usb_holder_hole_dims[1] / 2,
-        -usb_holder_hole_dims[2] / 2,
-    )(cube(*usb_holder_hole_dims))
-
-    return translate(*usb_holder_position())(placed_shape)
+def holder_cutout():
+    shape = cube(holder_cutout_height, holder_cutout_width, 20, center=True)
+    return translate(*holder_cutout_position())(rotate_y(90)(shape))
 
 reset_switch_hole_height = 4.2
 reset_switch_width = 6.0
@@ -961,15 +903,11 @@ def right_shell():
             thumb_connectors(),
             # thumb_caps(),
             thumb_to_body_connectors(),
-
-            trrs_holder(),
-            usb_holder_rim(),
         ),
         union(
             blocker(),
             screw_insert_all_shapes(screw_insert_inner),
-            trrs_holder_hole(),
-            usb_holder_hole(),
+            holder_cutout(),
         ))
 
     # return intersection(cover, full_proto)
