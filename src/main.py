@@ -848,11 +848,11 @@ holder_cutout_width = 29.0
 
 def holder_cutout_position():
     base_place = point_on_grid(0, 0, 0, 0, 0)
-    return [base_place[0] + 8, base_place[1] - 3, 8]
+    return [base_place[0] + 13, base_place[1] + 10, 6.2]
 
 def holder_cutout():
-    shape = cube(holder_cutout_height, holder_cutout_width, 20, center=True)
-    return translate(*holder_cutout_position())(rotate_y(90)(shape))
+    shape = cube(29, 3, 12.5, center=True)
+    return translate(*holder_cutout_position())(shape)
 
 reset_switch_hole_height = 4.2
 reset_switch_width = 6.0
